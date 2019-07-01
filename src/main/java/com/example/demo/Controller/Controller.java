@@ -5,11 +5,9 @@ import com.example.demo.Functions.SetMenu;
 import com.example.demo.Utils.FoodInfo;
 import com.example.demo.Utils.FoodSearchJson;
 import com.example.demo.Utils.MenuJson;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,10 +29,16 @@ public class Controller {
     }
 
     @RequestMapping(value = "/Search",method = RequestMethod.POST)
-    public ResponseEntity<MenuJson> Search(@RequestBody FoodSearchJson foodSearchJson){
+    public ResponseEntity<MenuJson> Search(@RequestBody FoodSearchJson foodSearchJson) throws Exception{
         SearchFoods searchFoods=new SearchFoods();
         MenuJson resultJson = searchFoods.search(foodSearchJson,menuJson);
-        return ResponseEntity.ok(resultJson);
+        if (resultJson!=null){
+            return ResponseEntity.ok(resultJson);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+
+
+
 
 }

@@ -25,8 +25,14 @@ public class SearchFoods {
                 }
                 }
         }
-        MenuJson menuJson1=new MenuJson();
-        menuJson1.setMenu(result);
-        return menuJson1;
+        else {
+            result = null;
+        }
+        if (result!=null){
+            MenuJson menuJson1=new MenuJson();
+            menuJson1.setMenu(result);
+            return menuJson1;
+        }
+        return null;
     }
 }
