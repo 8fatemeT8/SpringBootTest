@@ -29,6 +29,7 @@ public class Controller {
         food.setName("CheeseBerger");
         food.setPrice("18000");
         Foods.add(food);
+        food=new FoodInfo();
         food.setId(1);
         food.setName("Margarita");
         food.setPrice("32000");

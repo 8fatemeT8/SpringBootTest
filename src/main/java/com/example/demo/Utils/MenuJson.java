@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonPropertyOrder({
-        "Menu"
-})
+
 public class MenuJson {
     public List<FoodInfo> getMenu() {
         return Menu;
