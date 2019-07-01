@@ -6,12 +6,14 @@ import com.example.demo.Utils.FoodDeleteJson;
 import com.example.demo.Utils.FoodInfo;
 import com.example.demo.Utils.FoodSearchJson;
 import com.example.demo.Utils.MenuJson;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api")
@@ -39,7 +41,7 @@ public class Controller {
     }
 
     @RequestMapping(value = "/Delete",method = RequestMethod.POST)
-    public ResponseEntity<String> Delete(@RequestBody FoodDeleteJson foodDeleteJson) throws Exception{
+    public ResponseEntity<String> Delete(@RequestBody FoodDeleteJson foodDeleteJson) throws JSONException {
         JSONObject jsonObject = new JSONObject();
         System.out.println(foodDeleteJson.getDeleteOption());
         if (foodDeleteJson.getDeleteOption()==0){
@@ -72,6 +74,17 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
     }
 
+    @RequestMapping(value = "/Create",method = RequestMethod.POST)
+    public ResponseEntity<String> Create(@RequestBody FoodInfo foodInfo) throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        Random random=new Random();
+        foodInfo.setId(random.nextInt(2000));
+        List<FoodInfo> foods = menuJson.getMenu();
+        foods.add(foodInfo);
+        menuJson.setMenu(foods);
+        jsonObject.put("Report","Created");
+        return ResponseEntity.ok(jsonObject.toString());
+    }
 
 
 
