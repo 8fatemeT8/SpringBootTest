@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Functions.SetMenu;
 import com.example.demo.Utils.FoodInfo;
 import com.example.demo.Utils.MenuJson;
 import org.springframework.http.ResponseEntity;
@@ -21,20 +22,8 @@ public class Controller {
     }
 
     @RequestMapping(value = "/Menu",method = RequestMethod.GET)
-    public ResponseEntity<MenuJson> menu(){
-        MenuJson menuJson=new MenuJson();
-        List<FoodInfo> Foods=new ArrayList<FoodInfo>();
-        FoodInfo food=new FoodInfo();
-        food.setId(0);
-        food.setName("CheeseBerger");
-        food.setPrice("18000");
-        Foods.add(food);
-        food=new FoodInfo();
-        food.setId(1);
-        food.setName("Margarita");
-        food.setPrice("32000");
-        Foods.add(food);
-        menuJson.setMenu(Foods);
+    public ResponseEntity<MenuJson> Menu(){
+        MenuJson menuJson = SetMenu.setMenuJson();
         return ResponseEntity.ok(menuJson);
     }
 

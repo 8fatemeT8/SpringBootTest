@@ -17,5 +17,5 @@ public class MenuJson {
     }
 
     @JsonProperty("Menu")
-    private List<FoodInfo> Menu=new ArrayList<FoodInfo>();
+    private List<FoodInfo> Menu=new ArrayList<>();
 }
