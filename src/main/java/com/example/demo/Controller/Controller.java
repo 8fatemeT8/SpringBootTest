@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,16 +19,15 @@ import java.util.Random;
 public class Controller {
 
     MenuJson menuJson = SetMenu.setMenuJson();
+    FoodOrderJson foodOrders=new FoodOrderJson();
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     public ResponseEntity<String> test(){
         return ResponseEntity.ok("it's working");
     }
-
     @RequestMapping(value = "/Menu",method = RequestMethod.GET)
     public ResponseEntity<MenuJson> Menu(){
         return ResponseEntity.ok(menuJson);
     }
-
     @RequestMapping(value = "/Search",method = RequestMethod.POST)
     public ResponseEntity<MenuJson> Search(@RequestBody FoodSearchJson foodSearchJson) throws Exception {
         SearchFoods searchFoods=new SearchFoods();
@@ -37,7 +37,6 @@ public class Controller {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
-
     @RequestMapping(value = "/Delete",method = RequestMethod.POST)
     public ResponseEntity<String> Delete(@RequestBody FoodUpdateJson foodUpdateJson) throws JSONException {
         JSONObject jsonObject = new JSONObject();
@@ -52,7 +51,6 @@ public class Controller {
         jsonObject.put("Report","Bad Request");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
     }
-
     @RequestMapping(value = "/Create",method = RequestMethod.POST)
     public ResponseEntity<String> Create(@RequestBody FoodInfo foodInfo) throws JSONException {
         JSONObject jsonObject=new JSONObject();
@@ -64,7 +62,6 @@ public class Controller {
         jsonObject.put("Report","Created");
         return ResponseEntity.ok(jsonObject.toString());
     }
-
     @RequestMapping(value = "/Update",method = RequestMethod.POST)
     public ResponseEntity<String> Update(@RequestBody FoodUpdateJson foodUpdateJson) throws JSONException {
         JSONObject jsonObject = new JSONObject();
@@ -80,6 +77,23 @@ public class Controller {
         }
         jsonObject.put("Report","Bad Request");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
+    }
+    @RequestMapping(value = "/Order",method = RequestMethod.POST)
+    public ResponseEntity<String> Order(@RequestBody FoodOrderJson foodOrderJson) throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        List<OrderJson> orders = foodOrderJson.getOrders();
+        List<OrderJson> submitOrders=new ArrayList<>();
+        GetFood getFood=new GetFood();
+        for (OrderJson order : orders) {
+            FoodUpdateJson foodUpdateJson = new FoodUpdateJson(order.getFood().getId(), 1);
+            if (getFood.getFood(foodUpdateJson, menuJson)) {
+                submitOrders.add(order);
+                jsonObject.put(getFood.getFoodInfo().getName(), "Ordered");
+            } else {
+                jsonObject.put("Not Exist", "Not Ordered");
+            }
+        }
+        return ResponseEntity.ok(jsonObject.toString());
     }
 
 

@@ -14,6 +14,14 @@ public class FoodUpdateJson {
     @JsonProperty("GetBy")
     private int GetBy;
 
+    public FoodUpdateJson() {
+
+    }
+    public FoodUpdateJson(int id, int getBy) {
+        Id = id;
+        GetBy = getBy;
+    }
+
     public void setGetBy(int getBy) {
         GetBy = getBy;
     }

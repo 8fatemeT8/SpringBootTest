@@ -33,6 +33,8 @@ public class GetFood {
             List<FoodInfo> foods = menuJson.getMenu();
             for (int i=0;i<foods.size();i++){
                 if(foodUpdateJson.getName().equals(foods.get(i).getName())){
+                    index = i;
+                    foodInfo = foods.get(i);
                     return true;
                 }
             }
@@ -41,6 +43,8 @@ public class GetFood {
             List<FoodInfo> foods = menuJson.getMenu();
             for (int i=0;i<foods.size();i++){
                 if(foodUpdateJson.getId()==foods.get(i).getId()){
+                    index = i;
+                    foodInfo = foods.get(i);
                     return true;
                 }
                 if(i==foods.size()-1){
