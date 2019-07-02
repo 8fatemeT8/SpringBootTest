@@ -1,11 +1,9 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Functions.GetFood;
 import com.example.demo.Functions.SearchFoods;
 import com.example.demo.Functions.SetMenu;
-import com.example.demo.Utils.FoodDeleteJson;
-import com.example.demo.Utils.FoodInfo;
-import com.example.demo.Utils.FoodSearchJson;
-import com.example.demo.Utils.MenuJson;
+import com.example.demo.Utils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -31,7 +29,7 @@ public class Controller {
     }
 
     @RequestMapping(value = "/Search",method = RequestMethod.POST)
-    public ResponseEntity<MenuJson> Search(@RequestBody FoodSearchJson foodSearchJson) throws Exception{
+    public ResponseEntity<MenuJson> Search(@RequestBody FoodSearchJson foodSearchJson) throws Exception {
         SearchFoods searchFoods=new SearchFoods();
         MenuJson resultJson = searchFoods.search(foodSearchJson,menuJson);
         if (resultJson!=null){
@@ -41,35 +39,16 @@ public class Controller {
     }
 
     @RequestMapping(value = "/Delete",method = RequestMethod.POST)
-    public ResponseEntity<String> Delete(@RequestBody FoodDeleteJson foodDeleteJson) throws JSONException {
+    public ResponseEntity<String> Delete(@RequestBody FoodUpdateJson foodUpdateJson) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        System.out.println(foodDeleteJson.getDeleteOption());
-        if (foodDeleteJson.getDeleteOption()==0){
-            List<FoodInfo> foods = menuJson.getMenu();
-            for (int i=0;i<foods.size();i++){
-                if(foodDeleteJson.getName().equals(foods.get(i).getName())){
-                    foods.remove(i);
-                    menuJson.setMenu(foods);
-                    jsonObject.put("Report","Deleted");
-                    return ResponseEntity.ok(jsonObject.toString());
-                }
-            }
+        GetFood getFood=new GetFood();
+        if (getFood.getFood(foodUpdateJson,menuJson)){
+            List<FoodInfo> foods=menuJson.getMenu();
+            foods.remove(getFood.getIndex());
+            menuJson.setMenu(foods);
+            jsonObject.put("Report","Deleted");
+            return ResponseEntity.ok(jsonObject.toString());
         }
-        else if (foodDeleteJson.getDeleteOption()==1){
-                List<FoodInfo> foods = menuJson.getMenu();
-                for (int i=0;i<foods.size();i++){
-                    if(foodDeleteJson.getId()==foods.get(i).getId()){
-                        foods.remove(i);
-                        menuJson.setMenu(foods);
-                        jsonObject.put("Report","Deleted");
-                        return ResponseEntity.ok(jsonObject.toString());
-                    }
-                    if(i==foods.size()-1){
-                        jsonObject.put("Report","Not Exist");
-                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
-                    }
-                }
-            }
         jsonObject.put("Report","Bad Request");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
     }
@@ -85,6 +64,24 @@ public class Controller {
         jsonObject.put("Report","Created");
         return ResponseEntity.ok(jsonObject.toString());
     }
+
+    @RequestMapping(value = "/Update",method = RequestMethod.POST)
+    public ResponseEntity<String> Update(@RequestBody FoodUpdateJson foodUpdateJson) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        GetFood getFood=new GetFood();
+        if (getFood.getFood(foodUpdateJson,menuJson)){
+            List<FoodInfo> foods=menuJson.getMenu();
+            FoodInfo food = foods.get(getFood.getIndex());
+            food.setName(foodUpdateJson.getNewName());
+            food.setPrice(foodUpdateJson.getNewPrice());
+            foods.set(getFood.getIndex(),food);
+            jsonObject.put("Report","Updated");
+            return ResponseEntity.ok(jsonObject.toString());
+        }
+        jsonObject.put("Report","Bad Request");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
+    }
+
 
 
 

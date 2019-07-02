@@ -8,6 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFoods {
+
+    private int index=-1;
+    private FoodInfo food=new FoodInfo();
+
+    public FoodInfo getFood() {
+        return food;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
     public MenuJson search(FoodSearchJson foodSearchJson,MenuJson menuJson){
         List<FoodInfo> foods= menuJson.getMenu();
         List<FoodInfo> result = new ArrayList<>();
@@ -15,6 +27,8 @@ public class SearchFoods {
             for(int i=0;i<foods.size();i++){
                 if (Long.parseLong(foods.get(i).getPrice())<=Long.parseLong(foodSearchJson.getLessThanPrice())){
                     result.add(foods.get(i));
+                    food = foods.get(i);
+                    index = i;
                 }
             }
         }
@@ -35,4 +49,5 @@ public class SearchFoods {
         }
         return null;
     }
+
 }
