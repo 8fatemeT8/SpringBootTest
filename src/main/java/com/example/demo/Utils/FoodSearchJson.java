@@ -3,34 +3,38 @@ package com.example.demo.Utils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FoodSearchJson {
-    @JsonProperty("SubName")
-    private String SubName;
-    @JsonProperty("LessThanPrice")
-    private String LessThanPrice;
-    @JsonProperty("SearchOption")
-    private int SearchOption;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("price")
+    private String price;
 
-    public int getSearchOption() {
-        return SearchOption;
+    public String getPage() {
+        return page;
     }
 
-    public void setSearchOption(int searchOption) {
-        SearchOption = searchOption;
+    public void setPage(String page) {
+        this.page = page;
     }
 
-    public void setLessThanPrice(String lessThanPrice) {
-        LessThanPrice = lessThanPrice;
+    @JsonProperty("page")
+    private String page;
+
+
+
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getLessThanPrice() {
-        return LessThanPrice;
+    public String getPrice() {
+        return price;
     }
 
-    public String getSubName() {
-        return SubName;
+    public String getName() {
+        return name;
     }
 
-    public void setSubName(String subName) {
-        SubName = subName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -3,12 +3,44 @@ package com.example.demo.Utils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FoodInfo {
-    @JsonProperty("Id")
+    @JsonProperty("id")
     private int Id;
-    @JsonProperty("Name")
+    @JsonProperty("name")
     private String Name;
-    @JsonProperty("Price")
+    @JsonProperty("price")
     private String Price;
+    @JsonProperty("imageUrl")
+    private String imageUrl;
+
+    public String getTime() {
+
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    @JsonProperty("type")
+    private int type;
+    @JsonProperty("time")
+    private String time;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public int getId() {
         return Id;

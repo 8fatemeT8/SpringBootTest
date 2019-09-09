@@ -29,17 +29,8 @@ public class GetFood {
     }
 
     public boolean getFood(FoodUpdateJson foodUpdateJson, MenuJson menuJson){
-        if (foodUpdateJson.getGetBy()==0){
-            List<FoodInfo> foods = menuJson.getMenu();
-            for (int i=0;i<foods.size();i++){
-                if(foodUpdateJson.getName().equals(foods.get(i).getName())){
-                    index = i;
-                    foodInfo = foods.get(i);
-                    return true;
-                }
-            }
-        }
-        else if (foodUpdateJson.getGetBy()==1){
+        System.out.println("fuck");
+        System.out.println(foodUpdateJson.getName()+foodUpdateJson.getPrice()+foodUpdateJson.getId()+foodUpdateJson.getType());
             List<FoodInfo> foods = menuJson.getMenu();
             for (int i=0;i<foods.size();i++){
                 if(foodUpdateJson.getId()==foods.get(i).getId()){
@@ -51,7 +42,22 @@ public class GetFood {
                     return false;
                 }
             }
+
+        return false;
+    }
+    public boolean getFood(int id, MenuJson menuJson){
+        List<FoodInfo> foods = menuJson.getMenu();
+        for (int i=0;i<foods.size();i++){
+            if(id==foods.get(i).getId()){
+                index = i;
+                foodInfo = foods.get(i);
+                return true;
+            }
+            if(i==foods.size()-1){
+                return false;
+            }
         }
+
         return false;
     }
 }

@@ -10,12 +10,31 @@ import java.util.List;
 public class MenuJson {
     public List<FoodInfo> getMenu() {
         return Menu;
+
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public void setMenu(List<FoodInfo> menu) {
-        Menu = menu;
-    }
+        this.Menu = menu;
+        this.count = menu.size();
 
-    @JsonProperty("Menu")
-    private List<FoodInfo> Menu=new ArrayList<>();
+    }
+    public MenuJson(List<FoodInfo> menu){
+        this.Menu = menu;
+        this.count = menu.size();
+
+    }
+    public MenuJson(){
+    }
+    @JsonProperty("menu")
+    private List<FoodInfo> Menu;
+    @JsonProperty("count")
+    private int count;
 }
