@@ -8,6 +8,13 @@ import java.util.List;
 
 
 public class MenuJson {
+
+    @JsonProperty("menu")
+    private List<FoodInfo> Menu;
+    @JsonProperty("count")
+    private int count;
+
+
     public List<FoodInfo> getMenu() {
         return Menu;
 
@@ -26,15 +33,14 @@ public class MenuJson {
         this.count = menu.size();
 
     }
-    public MenuJson(List<FoodInfo> menu){
+
+    public MenuJson(List<FoodInfo> menu) {
         this.Menu = menu;
         this.count = menu.size();
 
     }
-    public MenuJson(){
+
+    public MenuJson() {
     }
-    @JsonProperty("menu")
-    private List<FoodInfo> Menu;
-    @JsonProperty("count")
-    private int count;
+
 }

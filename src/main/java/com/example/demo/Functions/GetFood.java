@@ -28,36 +28,40 @@ public class GetFood {
         this.foodInfo = foodInfo;
     }
 
-    public boolean getFood(FoodUpdateJson foodUpdateJson, MenuJson menuJson){
+    public boolean getFood(FoodUpdateJson foodUpdateJson, MenuJson menuJson) {
         System.out.println("fuck");
-        System.out.println(foodUpdateJson.getName()+foodUpdateJson.getPrice()+foodUpdateJson.getId()+foodUpdateJson.getType());
-            List<FoodInfo> foods = menuJson.getMenu();
-            for (int i=0;i<foods.size();i++){
-                if(foodUpdateJson.getId()==foods.get(i).getId()){
-                    index = i;
-                    foodInfo = foods.get(i);
-                    return true;
-                }
-                if(i==foods.size()-1){
-                    return false;
-                }
-            }
+        System.out.println(foodUpdateJson.getName() + foodUpdateJson.getPrice() + foodUpdateJson.getId() + foodUpdateJson.getType());
 
-        return false;
-    }
-    public boolean getFood(int id, MenuJson menuJson){
-        List<FoodInfo> foods = menuJson.getMenu();
-        for (int i=0;i<foods.size();i++){
-            if(id==foods.get(i).getId()){
+        return getFood(foodUpdateJson.getId(), menuJson);
+
+        /*  List<FoodInfo> foods = menuJson.getMenu();
+        for (int i = 0; i < foods.size(); i++) {
+            if (foodUpdateJson.getId() == foods.get(i).getId()) {
                 index = i;
                 foodInfo = foods.get(i);
                 return true;
             }
-            if(i==foods.size()-1){
+
+            if (i == foods.size() - 1) {
                 return false;
             }
         }
+        return false;*/
+    }
 
+    public boolean getFood(int id, MenuJson menuJson) {
+        List<FoodInfo> foods = menuJson.getMenu();
+        for (int i = 0; i < foods.size(); i++) {
+            if (id == foods.get(i).getId()) {
+                index = i;
+                foodInfo = foods.get(i);
+                return true;
+            }
+            /** we don't need this if */
+            if (i == foods.size() - 1) {
+                return false;
+            }
+        }
         return false;
     }
 }

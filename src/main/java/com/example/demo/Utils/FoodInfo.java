@@ -11,9 +11,13 @@ public class FoodInfo {
     private String Price;
     @JsonProperty("imageUrl")
     private String imageUrl;
+    @JsonProperty("type")
+    private int type;
+    @JsonProperty("time")
+    private String time;
+
 
     public String getTime() {
-
         return time;
     }
 
@@ -21,10 +25,6 @@ public class FoodInfo {
         this.time = time;
     }
 
-    @JsonProperty("type")
-    private int type;
-    @JsonProperty("time")
-    private String time;
 
     public int getType() {
         return type;
@@ -65,6 +65,4 @@ public class FoodInfo {
     public void setPrice(String price) {
         Price = price;
     }
-
-
 }

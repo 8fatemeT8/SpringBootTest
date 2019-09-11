@@ -7,6 +7,9 @@ public class FoodSearchJson {
     private String name;
     @JsonProperty("price")
     private String price;
+    @JsonProperty("page")
+    private String page;
+
 
     public String getPage() {
         return page;
@@ -15,12 +18,6 @@ public class FoodSearchJson {
     public void setPage(String page) {
         this.page = page;
     }
-
-    @JsonProperty("page")
-    private String page;
-
-
-
 
     public void setPrice(String price) {
         this.price = price;
